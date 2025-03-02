@@ -1,0 +1,23 @@
+name: app-adventureworks
+
+services:
+  db-server:
+    image: adventure-works-db-server
+    container_name: db-server
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DB_SA_PASSWORD}
+    ports:
+      - 1433:1433
+    build:
+      dockerfile: db-server.Dockerfile
+  db-client:
+    depends_on:
+      db-server:
+        condition: service_healthy
+    image: adventure-works-db-client
+    container_name: db-client
+    environment:
+      - MSSQL_SA_PASSWORD=${DB_SA_PASSWORD}
+    build:
+      dockerfile: db-client.Dockerfile
