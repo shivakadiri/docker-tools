@@ -6,6 +6,8 @@
 #env files
 *.env
 
+#modified by this program files
+modified/
 # User-specific files
 *.rsuser
 *.suo
